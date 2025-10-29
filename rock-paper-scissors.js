@@ -1,8 +1,8 @@
 /*
 PROCESS GetComputerChoice
-    CREATE a random number
-    CALCULATE random integer from random number
-    CALCULATE remainder of a random number divide by 3
+    CREATE a random decimal
+    CALCULATE an integer from random decimal
+    CALCULATE remainder of a integer divide by 3
     IF remainder = 0
         RETURN "rock"
     ELSE IF remainder = 1
@@ -22,3 +22,16 @@ function getComputerChoice(){
     else if( remainder == 1) return "paper"
     else return "scissors"
 }
+
+/*
+PROCESS GetHumanChoice
+    INPUT humanChoice
+    RETURN humanChoice
+END
+*/
+function getHumanChoice(){
+    let humanChoice = prompt("Input your choice :");
+    return humanChoice;
+}
+
+console.log(getHumanChoice());
