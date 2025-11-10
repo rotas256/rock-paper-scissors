@@ -49,6 +49,30 @@ function playGame(){
     let humanScore = 0;
     let computerScore = 0;
     const body = document.querySelector('body');
+
+    /*
+    PROCESS CheckResult
+        IF humanScore reaches 5 points
+            PRINT "You Win!"
+        ELSE IF computerScore reaches 5 points 
+            PRINT "You lose!"
+    END
+    */
+    function showCurrentScore(){
+        const currentScore = document.createElement("div");
+        currentScore.textContent = "[Score] You: "+humanScore+", Com: "+computerScore;
+        body.appendChild(currentScore);
+        if( humanScore === 5 ){
+            const gameResult = document.createElement('div');
+            gameResult.textContent = "---- You reach 5 points. You win!! ----";
+            body.appendChild(gameResult);
+        } else if( computerScore === 5 ){
+            const gameResult = document.createElement('div');
+            gameResult.textContent = "---- Computer reaches 5 points. You lose!! ----";
+            body.appendChild(gameResult);
+        }
+    }
+
     
     /*
     PROCESS PlayRound
@@ -138,6 +162,7 @@ function playGame(){
                 }
                 break;
         }
+        showCurrentScore();
     }
 
     /*
@@ -145,6 +170,7 @@ function playGame(){
         CREATE 3 buttons one for each selection.
         ADD an event listener to the buttons
             that call playRound func with the correct playerSelection
+    END
     */
     function createButtons(){        
         const hands = ["rock", "paper", "scissors"];
@@ -165,6 +191,7 @@ function playGame(){
         }, false);
         console.log(btnCreateError);
     }
+
     createButtons();
 }
 
