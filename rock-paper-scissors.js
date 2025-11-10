@@ -1,8 +1,6 @@
 /*
 PROCESS GetComputerChoice
-    CREATE a random decimal
-    CALCULATE an integer from random decimal
-    CALCULATE remainder of a integer divide by 3
+    CREATE a random number from 1 to 3
     IF remainder = 0
         RETURN "rock"
     ELSE IF remainder = 1
@@ -12,14 +10,10 @@ PROCESS GetComputerChoice
 END
 */
 function getComputerChoice(){
-    const maxNum = 65535;
-    let rand = Math.random();
-    let randInt = parseInt(rand*maxNum, 10);
+    let rand = Math.floor(Math.random() * 3);
     
-    let remainder = randInt % 3;
-
-    if( remainder == 0 ) return "rock"
-    else if( remainder == 1) return "paper"
+    if( rand == 0 ) return "rock"
+    else if( rand == 1) return "paper"
     else return "scissors"
 }
 
@@ -136,26 +130,6 @@ function playGame(){
                 }
                 break;
         }
-    }
-    
-    const rounds = 5;
-    let humanSelection;
-    let computerSelection;
-    for( let i=0 ; i<rounds; i++){
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        console.log("COM:"+computerSelection);
-
-        playRound(humanSelection, computerSelection);
-    }
-    console.log("-----");
-    console.log("Score: [You:"+humanScore+"] [Com:"+computerScore+"]");
-    if(humanScore > computerScore){
-        console.log("You win!");
-    }else if(humanScore < computerScore){
-        console.log("You lose!");
-    }else{
-        console.log("Draw!");
     }
 }
 
