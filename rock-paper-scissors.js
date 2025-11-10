@@ -48,6 +48,7 @@ END
 function playGame(){
     let humanScore = 0;
     let computerScore = 0;
+    const body = document.querySelector('body');
     
     /*
     PROCESS PlayRound
@@ -82,19 +83,26 @@ function playGame(){
     END
     */
     function playRound(humanChoice, computerChoice){
-        const unifiedHumanChoice = humanChoice.toLowerCase();
-        switch(unifiedHumanChoice){
+        const roundMessage = document.createElement('div');
+        const roundChoices = document.createElement('p');
+        const roundResult = document.createElement('p');
+        roundChoices.textContent = "YOU: "+humanChoice+", COM: "+computerChoice;
+        roundMessage.appendChild(roundChoices);
+        roundMessage.appendChild(roundResult);
+        body.appendChild(roundMessage);
+
+        switch(humanChoice){
             case "rock":
                 switch(computerChoice){
                     case "rock":
-                        console.log("Draw!");
+                        roundResult.textContent = "Draw!";
                         break;
                     case "paper":
-                        console.log("You lose! Paper beats Rock");
+                        roundResult.textContent = "You lose! Paper beats Rock";
                         computerScore++;
                         break;
                     case "scissors":
-                        console.log("You win! Rock beats Scissors");
+                        roundResult.textContent = "You win! Rock beats Scissors";
                         humanScore++;
                         break;
                 }
@@ -102,14 +110,14 @@ function playGame(){
             case "paper":
                 switch(computerChoice){
                     case "rock":
-                        console.log("You win! Paper beats Rock");
+                        roundResult.textContent = "You win! Paper beats Rock";
                         humanScore++;
                         break;
                     case "paper":
-                        console.log("Draw!");
+                        roundResult.textContent = "Draw!";
                         break;
                     case "scissors":
-                        console.log("You lose! Scissors beats Paper");
+                        roundResult.textContent = "You lose! Scissors beats Paper";
                         computerScore++;
                         break;
                 }
@@ -117,15 +125,15 @@ function playGame(){
             case "scissors":
                 switch(computerChoice){
                     case "rock":
-                        console.log("You lose! Rock beats Scissors");
+                        roundResult.textContent = "You lose! Rock beats Scissors";
                         computerScore++;
                         break;
                     case "paper":
-                        console.log("You win! Scissors beats Paper");
+                        roundResult.textContent = "You win! Scissors beats Paper";
                         humanScore++;
                         break;
                     case "scissors":
-                        console.log("Draw!");
+                        roundResult.textContent = "Draw!";
                         break;
                 }
                 break;
@@ -138,21 +146,24 @@ function playGame(){
         ADD an event listener to the buttons
             that call playRound func with the correct playerSelection
     */
-    function createButtons(){
-        const body = document.querySelector('body');
-        
+    function createButtons(){        
         const hands = ["rock", "paper", "scissors"];
-        let buttonCreated = hands.reduce((result, hand) => {
-            const currentButton = document.createElement('button');
-            currentButton.textContent = hand;
-            body.appendChild(currentButton);
-            currentButton.addEventListener('click',(e)=>{
-                e.preventDefault();
-                playRound(hand, getComputerChoice());
-            });
-            return true;
-        }, true);
-        console.log(buttonCreated);
+        let btnCreateError = hands.reduce((result, hand) => {
+            try {
+                const currentButton = document.createElement('button');
+                currentButton.textContent = hand;
+                body.appendChild(currentButton);
+                currentButton.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    playRound(hand, getComputerChoice());
+                });
+            } catch(e) {
+                console.log("ERROR:", e.message);
+                return true;
+            }
+            return result;
+        }, false);
+        console.log(btnCreateError);
     }
     createButtons();
 }
