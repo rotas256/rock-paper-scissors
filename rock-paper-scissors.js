@@ -131,6 +131,30 @@ function playGame(){
                 break;
         }
     }
+
+    /*
+    PROCESS CreateButtons
+        CREATE 3 buttons one for each selection.
+        ADD an event listener to the buttons
+            that call playRound func with the correct playerSelection
+    */
+    function createButtons(){
+        const body = document.querySelector('body');
+        
+        const hands = ["rock", "paper", "scissors"];
+        let buttonCreated = hands.reduce((result, hand) => {
+            const currentButton = document.createElement('button');
+            currentButton.textContent = hand;
+            body.appendChild(currentButton);
+            currentButton.addEventListener('click',(e)=>{
+                e.preventDefault();
+                playRound(hand, getComputerChoice());
+            });
+            return true;
+        }, true);
+        console.log(buttonCreated);
+    }
+    createButtons();
 }
 
 playGame();
